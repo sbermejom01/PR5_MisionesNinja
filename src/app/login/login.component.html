@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true" class="shinobi-bg">
+  <div class="overlay"></div>
+
+  <div class="container">
+    <div class="left-section">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <ion-icon name="flash"></ion-icon> 
+        </div>
+        <span class="logo-text">CLAN SHINOBI</span>
+      </div>
+
+      <h1 class="main-title">
+        MAESTROS<br>
+        DE LA <span class="text-red">SOMBRA</span>
+      </h1>
+
+      <p class="description">
+        Accede a los privilegios del clan y realiza misiones en la oscuridad para evolucionar y convertirte en el próximo Hokage.
+      </p>
+    </div>
+
+    <div class="right-section">
+      <div class="login-card">
+        
+        <h2 class="card-title">SISTEMA DE GESTIÓN</h2>
+        <p class="card-subtitle">Desencripta tu pergamino para entrar.</p>
+
+        <div class="input-group">
+          <label>
+            <ion-icon name="person" class="label-icon"></ion-icon> Nombre Shinobi
+          </label>
+          <input type="text" placeholder="e.g., Hanzo_Steel" class="dark-input">
+        </div>
+
+        <div class="input-group">
+          <label>
+            <ion-icon name="book" class="label-icon"></ion-icon> Pergamino (Contraseña)
+          </label>
+          <div class="password-wrapper">
+            <input type="password" placeholder="............." class="dark-input">
+            <ion-icon name="eye-outline" class="eye-icon"></ion-icon>
+          </div>
+        </div>
+
+        <button class="btn-join" (click)="login()">
+          ACCEDER AL CLAN <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+
+        <div class="card-footer">
+          ¿Todavía no perteneces al clan? <a [routerLink]="['/register']">Regístrate aquí</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ion-content>

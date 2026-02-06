@@ -1,0 +1,382 @@
+/* =========================================
+   ESTILOS GLOBALES DE LA PAGINA
+   ========================================= */
+
+/* Fondo general */
+ion-content.dark-content {
+  --background: #0a0a0a;
+  background-color: #0a0a0a;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* =========================================
+   HEADER & TOOLBAR
+   ========================================= */
+
+.custom-toolbar {
+  --background: #141414;
+  color: white;
+  border-bottom: 2px solid #ea1d24;
+  padding: 5px 0;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 10px;
+}
+
+.avatar-wrapper {
+  position: relative;
+}
+
+.avatar img {
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+  border: 1px solid #ea1d24;
+  object-fit: cover;
+  display: block;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  background: #00ff00;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  border: 1px solid #000;
+  box-shadow: 0 0 4px #00ff00;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.username {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.user-rank {
+  font-size: 0.65rem;
+  color: #888;
+  letter-spacing: 1px;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.board-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: #ea1d24;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 1rem;
+  padding-right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* =========================================
+   BUSCADOR & FILTROS
+   ========================================= */
+
+.search-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 20px;
+  background: #141414;
+}
+
+.search-container {
+  flex: 1;
+}
+
+.custom-search {
+  --background: #1f1f1f;
+  --color: white;
+  --placeholder-color: #666;
+  --icon-color: #ea1d24;
+  --border-radius: 4px;
+  padding: 0;
+}
+
+.btn-filter {
+  background: #1f1f1f;
+  color: white;
+  border: 1px solid #333;
+  height: 42px;
+  width: 42px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* =========================================
+   SEGMENTOS (TABS)
+   ========================================= */
+
+.segment-container {
+  background: #141414;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #222;
+}
+
+.custom-segment {
+  background: #141414;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.custom-segment ion-segment-button {
+  --color: #666;
+  --color-checked: white;
+  --indicator-color: #ea1d24;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* =========================================
+   GRID DE MISIONES
+   ========================================= */
+
+.missions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.mission-card {
+  background: #161616;
+  border-left-width: 4px; 
+  border-left-style: solid;
+  /* El color se inyecta desde HTML */
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.mission-card:active {
+  transform: scale(0.98);
+}
+
+/* Decoración tecnológica esquina */
+.card-decoration.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,0.05) 50%);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-left: 1px solid rgba(255,255,255,0.1);
+}
+
+/* --- CARD HEADER --- */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.rank-badge-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rank-badge {
+  align-self: flex-start;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.danger-level {
+  display: flex;
+  gap: 2px;
+  font-size: 0.7rem;
+  padding-left: 2px;
+}
+
+.reward-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #ffd700;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  background: rgba(255, 215, 0, 0.05);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* --- CARD BODY --- */
+.mission-title {
+  color: white;
+  margin: 5px 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.mission-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 5px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.meta-item ion-icon {
+  color: #555;
+}
+
+/* --- CARD FOOTER (ACCIONES) --- */
+.card-footer {
+  margin-top: 10px;
+  padding-top: 15px;
+  border-top: 1px dashed #333;
+}
+
+/* Botón Aceptar */
+.btn-action {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  color: #000;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+.btn-action ion-icon {
+  font-size: 1.2rem;
+}
+
+/* Asignado (Avatar pequeño) */
+.assignee-row {
+  margin-bottom: 12px;
+}
+
+.assignee-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #111;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.mini-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.assignee-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.assignee-details .label {
+  font-size: 0.65rem;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.assignee-details .name {
+  color: #ddd;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* Botón Outline (Ver detalles) */
+.btn-outline {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-outline:hover {
+  border-color: #ea1d24;
+  color: white;
+  background: rgba(234, 29, 36, 0.05);
+}
+
+/* --- EMPTY STATE --- */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #444;
+  border: 2px dashed #222;
+  border-radius: 8px;
+}
+
+.empty-state ion-icon {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}

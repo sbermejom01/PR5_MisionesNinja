@@ -1,0 +1,235 @@
+.shinobi-bg {
+  font-family: 'Roboto', sans-serif;
+  background-image: url('../../assets/forest-dark.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* Overlay para oscurecer el fondo */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, #000000 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  gap: 40px;
+}
+
+@media (min-width: 900px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 10%;
+  }
+}
+
+/* --- SECCIÓN IZQUIERDA --- */
+.left-section {
+  max-width: 500px;
+  color: white;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo-icon {
+  background: #ea1d24; /* COLOR FIJO */
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  margin-right: 10px;
+  transform: skew(-10deg);
+}
+
+.logo-icon ion-icon {
+  font-size: 18px;
+  color: white;
+  transform: skew(10deg);
+}
+
+.logo-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.main-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: 3.5rem;
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin: 0 0 20px 0;
+}
+
+.main-title .text-red {
+  color: #ea1d24; /* COLOR FIJO */
+}
+
+.description {
+  color: #ccc;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 40px;
+  max-width: 400px;
+}
+
+.footer-meta {
+  display: flex;
+  gap: 20px;
+  font-size: 0.7rem;
+  color: #555;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* --- SECCIÓN DERECHA (CARD) --- */
+.login-card {
+  background: rgba(20, 20, 20, 0.95); /* COLOR FIJO */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(234, 29, 36, 0.1);
+}
+
+.card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.card-subtitle {
+  color: #a0a0a0; /* COLOR FIJO */
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.input-group .label-icon {
+  color: #ea1d24; /* COLOR FIJO */
+  margin-right: 8px;
+  font-size: 12px;
+}
+
+.dark-input {
+  width: 100%;
+  background: #1f1f1f; /* COLOR FIJO */
+  border: 1px solid #333;
+  color: white;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.dark-input::placeholder {
+  color: #555;
+}
+
+.dark-input:focus {
+  border-color: #ea1d24; /* COLOR FIJO */
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .eye-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  cursor: pointer;
+}
+
+.btn-join {
+  width: 100%;
+  background: linear-gradient(90deg, #d0181e 0%, #ff2a2a 100%);
+  color: white;
+  border: none;
+  padding: 15px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(234, 29, 36, 0.4);
+  transition: transform 0.2s;
+}
+
+.btn-join:active {
+  transform: scale(0.98);
+}
+
+.card-footer {
+  margin-top: 25px;
+  text-align: center;
+  color: #a0a0a0; /* COLOR FIJO */
+  font-size: 0.85rem;
+}
+
+.card-footer a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 1px solid white;
+}
+
+.card-footer a:hover {
+  color: #ea1d24;
+  border-color: #ea1d24;
+}

@@ -1,0 +1,7 @@
+{
+  "name": "PR5_MisionesNinja",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

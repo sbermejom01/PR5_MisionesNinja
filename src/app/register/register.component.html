@@ -1,0 +1,55 @@
+<ion-content [fullscreen]="true" class="shinobi-bg">
+  <div class="overlay"></div>
+
+  <div class="container">
+    <div class="left-section">
+      <div class="logo-container">
+        <div class="logo-icon"><ion-icon name="flash"></ion-icon></div>
+        <span class="logo-text">CLAN SHINOBI</span>
+      </div>
+      <h1 class="main-title">FORJA TU<br>PROPIO <span class="text-red">CAMINO</span></h1>
+      <p class="description">El mundo ninja está en guerra. Elige tu lealtad antes de que la oscuridad lo consuma todo.</p>
+    </div>
+
+    <div class="right-section">
+      <div class="login-card">
+        <h2 class="card-title">INSCRIPCIÓN SHINOBI</h2>
+        <p class="card-subtitle">Jura lealtad y recibe tu banda ninja.</p>
+
+        <div class="input-group">
+          <label><ion-icon name="person" class="label-icon"></ion-icon> Nuevo Nombre</label>
+          <input type="text" placeholder="e.g., Boruto_Uzumaki" class="dark-input">
+        </div>
+
+        <div class="input-group">
+          <label><ion-icon name="map" class="label-icon"></ion-icon> Aldea de Origen</label>
+          <div class="select-wrapper">
+            <select class="dark-input dark-select" [(ngModel)]="selectedVillage">
+              <option value="" disabled selected>Selecciona tu aldea...</option>
+              <option *ngFor="let village of villages" [value]="village.id">
+                {{ village.name }}
+              </option>
+            </select>
+            <ion-icon name="chevron-down-outline" class="select-arrow"></ion-icon>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label><ion-icon name="book" class="label-icon"></ion-icon> Crear Contraseña</label>
+          <div class="password-wrapper">
+            <input type="password" placeholder="............." class="dark-input">
+            <ion-icon name="eye-outline" class="eye-icon"></ion-icon>
+          </div>
+        </div>
+
+        <button class="btn-join" (click)="onRegister()">
+          FIRMAR CONTRATO <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+
+        <div class="card-footer">
+          ¿Ya tienes banda? <a [routerLink]="['/login']">Infíltrate aquí (Login)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

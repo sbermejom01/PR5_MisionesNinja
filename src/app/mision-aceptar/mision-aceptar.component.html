@@ -1,0 +1,19 @@
+<div class="modal-wrapper">
+      <div class="rank-circle" [style.border-color]="rankColors[mission.rank]">
+        <span [style.color]="rankColors[mission.rank]">{{ mission.rank }}</span>
+      </div>
+      
+      <h2 class="confirm-title">CONFIRM MISSION<br>ACCEPTANCE?</h2>
+      
+      <div class="mission-info">
+        <p>{{ mission.title }}</p>
+        <span class="warning">WARNING: HIGH DANGER LEVEL</span>
+      </div>
+
+      <div class="actions">
+        <button class="btn-cancel" (click)="cancel()">RETURN TO SHADOWS</button>
+        <button class="btn-accept" (click)="confirm()">
+          ACCEPT SCROLL
+        </button>
+      </div>
+</div>

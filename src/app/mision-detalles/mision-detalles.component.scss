@@ -1,0 +1,185 @@
+/* --- PAGINA DE DETALLES --- */
+
+/* Fondo general */
+ion-content.dark-content {
+  --background: #0a0a0a;
+  background-color: #0a0a0a;
+}
+
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Toolbar de detalles */
+.details-toolbar {
+  --background: #000000;
+  --color: white;
+  border-bottom: 1px solid #333;
+}
+
+.mission-status {
+  font-size: 0.8rem;
+  color: #00ff00; /* Verde Hacker */
+  font-family: monospace;
+  letter-spacing: 1px;
+  text-align: right;
+  padding-right: 15px;
+}
+
+/* Cabecera de Misión */
+.mission-header-block {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #222;
+}
+
+.mission-header-block h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  color: white;
+  font-size: 2.8rem;
+  line-height: 1;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+}
+
+.sub-meta {
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.text-red {
+  color: #ea1d24;
+}
+
+/* Tarjeta de Briefing */
+.briefing-card {
+  background: #1f1f1f;
+  padding: 25px;
+  border-radius: 6px;
+  border-left: 3px solid #ea1d24;
+  margin-bottom: 40px;
+}
+
+.briefing-card h3 {
+  color: white;
+  margin-top: 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.briefing-card h3 ion-icon {
+  color: #ea1d24;
+}
+
+.briefing-card p {
+  color: #ccc;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* Botones de acción Briefing */
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.btn-report {
+  background: #1f1f1f;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.btn-abandon {
+  background: #1f1f1f;
+  border: 1px solid #ea1d24;
+  color: #ea1d24;
+  padding: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* Secciones de Upload y Texto */
+.section-title {
+  color: white;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 30px 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+}
+
+.icon-red {
+  color: #ea1d24;
+}
+
+.evidence-box {
+  background: #111;
+  border: 2px dashed #333;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  transition: border-color 0.3s;
+}
+
+.evidence-box:hover {
+  border-color: #555;
+}
+
+.upload-placeholder {
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.upload-placeholder ion-icon {
+  font-size: 3rem;
+  color: #333;
+}
+
+.narrative-box textarea {
+  width: 100%;
+  background: #111;
+  border: 1px solid #333;
+  color: #ccc;
+  min-height: 150px;
+  padding: 15px;
+  border-radius: 4px;
+  outline: none;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+}
+
+.narrative-box textarea:focus {
+  border-color: #ea1d24;
+}
