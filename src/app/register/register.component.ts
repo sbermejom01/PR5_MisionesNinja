@@ -15,11 +15,12 @@ import { flash, person, book, eyeOutline, chevronForwardOutline, map, chevronDow
 })
 export class RegisterComponent {
   selectedVillage: string = '';
-  villages: any[] = [
-    { id: 'konoha', name: 'Konohagakure (Hoja)' },
-    { id: 'suna', name: 'Sunagakure (Arena)' },
-    { id: 'kiri', name: 'Kirigakure (Niebla)' },
-    { id: 'akatsuki', name: 'Akatsuki (Renegado)' }
+  ranks: any[] = [
+    { rank: 'Academy' },
+    { rank: 'Genin' },
+    { rank: 'Chunin' },
+    { rank: 'Jonin' },
+    { rank: 'Kage' }
   ];
 
   constructor(private router: Router) {
