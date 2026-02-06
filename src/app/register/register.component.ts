@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms'; // Importante para ngModel
+import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { flash, person, book, eyeOutline, chevronForwardOutline, map, chevronDownOutline } from 'ionicons/icons';
-import { Village } from '../models/village.model'; // Asegúrate de tener este modelo o defínelo aquí
 
 @Component({
   selector: 'app-register',
@@ -27,8 +26,7 @@ export class RegisterComponent {
     addIcons({ flash, person, book, eyeOutline, chevronForwardOutline, map, chevronDownOutline });
   }
 
-  onRegister() {
-    // Simular registro y entrar al dashboard
-    this.router.navigate(['/shinobi/dashboard']);
+  register() {
+
   }
 }
