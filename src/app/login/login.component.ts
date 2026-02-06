@@ -17,6 +17,6 @@ export class LoginComponent {
   }
 
   login() {
-    this.router.navigate(['/shinobi/dashboard']);
+    
   }
 }

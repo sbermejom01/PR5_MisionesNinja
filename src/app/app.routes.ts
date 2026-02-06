@@ -15,24 +15,6 @@ export const routes: Routes = [
     loadComponent: () => import('./register/register.component').then((m) => m.RegisterComponent),
   },
   {
-    path: 'shinobi',
-    children: [
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-      },
-      {
-        path: 'dashboard',
-        loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-      },
-      {
-        path: 'mision/:id',
-        loadComponent: () => import('./mision-detalles/mision-detalles.component').then((m) => m.MisionDetallesComponent),
-      }
-    ]
-  },
-  {
     path: '**',
     redirectTo: 'login',
     pathMatch: 'full'
