@@ -1,59 +1,59 @@
 <ion-content [fullscreen]="true" class="intel-bg">
   <div class="top-nav">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home" text="RETURN TO DASHBOARD" icon="arrow-back"></ion-back-button>
+      <ion-back-button defaultHref="/home" text="VOLVER AL TABLÓN" icon="arrow-back"></ion-back-button>
     </ion-buttons>
-    <span class="status-indicator">● STATUS: ACTIVE INFILTRATION</span>
+    <span class="status-indicator">● ESTADO: INFILTRACIÓN ACTIVA</span>
   </div>
 
   <div class="intel-container" *ngIf="mission">
     
     <div class="mission-header">
-      <h1>OPERATION: {{ mission.title }}</h1>
+      <h1>OPERACIÓN: {{ mission.title }}</h1>
       <div class="sub-header">
-        RANK: <span class="text-red">{{ mission.rankRequirement }}-RANK</span> | SECTOR: FIRE COUNTRY
+        RANGO: <span class="text-red">RANGO-{{ mission.rankRequirement }}</span> | SECTOR: PAÍS DEL FUEGO
       </div>
     </div>
 
     <div class="section-box briefing">
-      <h3><ion-icon name="document-text-outline"></ion-icon> BRIEFING</h3>
+      <h3><ion-icon name="document-text-outline"></ion-icon> INSTRUCCIONES</h3>
       <p>{{ mission.description }}</p>
       <div class="warning-text">
-        Time is of the essence, operative. The shadow is your only ally.
+        El tiempo es esencial, operativo. La sombra es tu única aliada.
       </div>
     </div>
 
     <div class="work-grid">
       
       <div class="section-box evidence">
-        <h3><ion-icon name="image-outline"></ion-icon> EVIDENCE COLLECTION</h3>
+        <h3><ion-icon name="image-outline"></ion-icon> RECOLECCIÓN DE PRUEBAS</h3>
         <div class="upload-zone">
           <ion-icon name="cloud-upload-outline"></ion-icon>
-          <p>Drag & Drop Intel Data</p>
-          <small>JPG, PNG, ENC files only</small>
+          <p>Arrastra y Suelta Datos de Intel</p>
+          <small>Solo archivos JPG, PNG, ENC</small>
         </div>
       </div>
 
       <div class="section-box narrative">
-        <h3><ion-icon name="document-text-outline"></ion-icon> MISSION NARRATIVE</h3>
+        <h3><ion-icon name="document-text-outline"></ion-icon> NARRATIVA DE LA MISIÓN</h3>
         <textarea 
           [(ngModel)]="reportText" 
-          placeholder="Log your movements and strikes. Note any deviations from the plan..."
+          placeholder="Registra tus movimientos y ataques. Nota cualquier desviación del plan..."
           class="dark-textarea"></textarea>
       </div>
     </div>
 
     <div class="footer-actions">
       <button class="btn-submit" (click)="submitReport()">
-        <ion-icon name="checkmark-circle"></ion-icon> SUBMIT FINAL REPORT
+        <ion-icon name="checkmark-circle"></ion-icon> ENVIAR REPORTE FINAL
       </button>
       <button class="btn-abandon" (click)="abandonMission()">
-        <ion-icon name="close-circle-outline"></ion-icon> ABANDON MISSION
+        <ion-icon name="close-circle-outline"></ion-icon> ABANDONAR MISIÓN
       </button>
     </div>
 
     <div class="footer-meta">
-      ID: #8H-{{ mission.id | slice:0:6 }} &nbsp;&nbsp; ENCRYPTED CONNECTION: SECURE
+      ID: #8H-{{ mission.id | slice:0:6 }} &nbsp;&nbsp; CONEXIÓN ENCRIPTADA: SEGURA
     </div>
 
   </div>
