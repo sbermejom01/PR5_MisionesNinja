@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { IonicModule, ToastController } from '@ionic/angular'; // Importar ToastController
-import { addIcons } from 'ionicons';
-import { flash, person, book, eyeOutline, chevronForwardOutline } from 'ionicons/icons';
-import { AuthService } from '../services/auth';
 import { FormsModule } from '@angular/forms';
+import { IonContent, IonIcon, ToastController } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { flash, person, book, eyeOutline, chevronForwardOutline, shieldCheckmark, closeCircle } from 'ionicons/icons';
+import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss'],
   standalone: true,
-  imports: [IonicModule, RouterLink, FormsModule],
+  imports: [ CommonModule, RouterLink, FormsModule, IonContent, IonIcon ],
 })
 export class LoginComponent {
 
@@ -23,7 +24,7 @@ export class LoginComponent {
     private auth: AuthService,
     private toastController: ToastController
   ) {
-    addIcons({ flash, person, book, eyeOutline, chevronForwardOutline });
+    addIcons({ flash, person, book, eyeOutline, chevronForwardOutline, shieldCheckmark, closeCircle });
   }
 
   async login() {
@@ -35,13 +36,18 @@ export class LoginComponent {
     this.auth.login(this.username, this.password)
       .subscribe({
         next: async (res) => {
-          this.auth.saveSession(res.token);
-          await this.presentToast(`Bienvenido de nuevo, ${this.username}.`, 'success');
+          if(res.token) {
+            this.auth.saveSession(res.token);
+          }
+          
+          this.presentToast(`Bienvenido de nuevo, ${this.username}.`, 'success');
+          
           this.router.navigate(['/home']);
         },
         error: async (err: any) => {
+          console.error(err);
           const msg = err?.error?.message || 'Credenciales incorrectas.';
-          await this.presentToast(msg, 'danger');
+          this.presentToast(msg, 'danger');
         }
       });
   }
@@ -52,8 +58,10 @@ export class LoginComponent {
       duration: 2000,
       position: 'bottom',
       color: color,
-      icon: color === 'success' ? 'shield-checkmark' : 'close-circle'
+      icon: color === 'success' ? 'shield-checkmark' : 'close-circle',
+      cssClass: 'custom-toast'
     });
-    await toast.present();
+    
+    toast.present();
   }
 }
