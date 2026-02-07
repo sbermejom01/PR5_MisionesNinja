@@ -30,7 +30,7 @@
           <label>
             <ion-icon name="person" class="label-icon"></ion-icon> Nombre Shinobi
           </label>
-          <input type="text" placeholder="e.g., Hanzo_Steel" class="dark-input">
+          <input type="text" [(ngModel)]="username" placeholder="e.g., Hanzo_Steel" class="dark-input">
         </div>
 
         <div class="input-group">
@@ -38,7 +38,7 @@
             <ion-icon name="book" class="label-icon"></ion-icon> Pergamino (Contraseña)
           </label>
           <div class="password-wrapper">
-            <input type="password" placeholder="............." class="dark-input">
+            <input type="password" [(ngModel)]="password" placeholder="............." class="dark-input">
             <ion-icon name="eye-outline" class="eye-icon"></ion-icon>
           </div>
         </div>
