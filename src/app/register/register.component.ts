@@ -36,26 +36,41 @@ export class RegisterComponent {
     addIcons({ flash, person, book, eyeOutline, chevronForwardOutline, map, chevronDownOutline });
   }
 
-  async register() {
-    if (!this.username || !this.password) {
-      this.presentToast('Debes completar el nombre y la contraseña', 'warning');
-      return;
-    }
+  // register.component.ts
 
-    this.auth.register(this.username, this.password, this.rank)
-      .subscribe({
-        next: async (res) => {
-          if(res.token) this.auth.saveSession(res.token);
-          
-          await this.presentToast('¡Bienvenido a la Academia! Inicia sesión.', 'success');
-          this.router.navigate(['/login']);
-        },
-        error: async (err: any) => {
-          const msg = err?.error?.message || 'Error al firmar el contrato.';
-          await this.presentToast(msg, 'danger');
-        }
-      });
+async register() {
+  console.log('1. Iniciando intento de registro...'); // DEBUG
+
+  if (!this.username || !this.password) {
+    this.presentToast('Debes completar el nombre y la contraseña', 'warning');
+    return;
   }
+
+  this.auth.register(this.username, this.password, this.rank)
+    .subscribe({
+      next: async (res) => {
+        console.log('2. ¡Éxito del servidor!', res); // DEBUG
+        
+        if(res.token) {
+            this.auth.saveSession(res.token);
+        }
+        
+        console.log('3. Intentando mostrar Toast...'); // DEBUG
+        await this.presentToast('¡Bienvenido a la Academia! Inicia sesión.', 'success');
+        
+        console.log('4. Intentando navegar...'); // DEBUG
+        // Usamos .then para asegurar que la promesa de navegación se cumple
+        this.router.navigate(['/login']).then(success => {
+            console.log('¿Navegación completada?', success);
+        });
+      },
+      error: async (err: any) => {
+        console.error('ERROR FATAL:', err); // DEBUG
+        const msg = err?.error?.message || 'Error al firmar el contrato.';
+        await this.presentToast(msg, 'danger');
+      }
+    });
+}
 
   async presentToast(message: string, color: 'success' | 'danger' | 'warning') {
     const toast = await this.toastController.create({
