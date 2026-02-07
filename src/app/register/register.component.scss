@@ -1,9 +1,6 @@
 .shinobi-bg {
-  font-family: 'Roboto', sans-serif;
-  background-image: url('../../assets/forest-dark.jpg');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  --background: url('/assets/forest-dark.jpg') no-repeat center center / cover;
+    background: transparent; 
 }
 
 .overlay {

@@ -1,3 +1,135 @@
-<p>
-  home works!
-</p>
+<ion-content [fullscreen]="true" class="dashboard-bg">
+  
+  <div class="top-bar">
+    <div class="brand">
+      <ion-icon name="shuriken" class="spin-icon"></ion-icon> MISSION BOARD
+    </div>
+    
+    <div class="user-info" *ngIf="ninjaProfile">
+      <div class="text-info">
+        <span class="rank-badge">{{ ninjaProfile.rank }}</span>
+        <span class="name">{{ ninjaProfile.username }}</span>
+      </div>
+      <ion-avatar>
+        <img [src]="ninjaProfile.avatarUrl" />
+      </ion-avatar>
+      <ion-button fill="clear" color="danger" (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+
+  <div class="main-container">
+    
+    <div class="tabs-container">
+      <ion-segment [value]="currentFilter" (ionChange)="applyFilter($event.detail.value!.toString())" mode="md" class="custom-segment">        <ion-segment-button value="DISPONIBLE">
+          <ion-label>
+            <ion-icon name="compass"></ion-icon> Disponibles
+          </ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="EN_CURSO">
+          <ion-label>
+            <ion-icon name="flame"></ion-icon> En Curso
+          </ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="COMPLETADA">
+          <ion-label>
+            <ion-icon name="shield-checkmark"></ion-icon> Historial
+          </ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <div class="stats-row" *ngIf="ninjaProfile">
+      <div class="stat-card">
+        <small>XP ACUMULADA</small>
+        <h2>{{ ninjaProfile.experiencePoints }} <span class="unit">XP</span></h2>
+      </div>
+      <div class="stat-card">
+        <small>MISIONES ACTIVAS</small>
+        <h2>{{ ninjaStats?.totalAssignments || 0 }}</h2>
+      </div>
+      <div class="stat-card">
+        <small>COMPLETADAS</small>
+        <h2>{{ ninjaStats?.completedMissions || 0 }}</h2>
+      </div>
+      <div class="stat-card highlight">
+        <small>CLASIFICACIÓN</small>
+        <h2>{{ ninjaProfile.rank }}</h2>
+      </div>
+    </div>
+
+    <h2 class="section-title">Asignaciones Disponibles</h2>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6" size-lg="4" *ngFor="let m of filteredMissions">
+          
+          <ion-card class="mission-card" [class.s-rank]="m.rankRequirement === 'S'">
+            
+            <div class="rank-tag" [ngClass]="'rank-' + m.rankRequirement">
+              RANK {{ m.rankRequirement }}
+            </div>
+
+            <img src="/assets/mission-bg-placeholder.png" alt="Mission" class="card-bg-img">
+            
+            <div class="card-overlay"></div>
+
+            <div class="card-content">
+              <ion-card-header>
+                <ion-card-title>{{ m.title }}</ion-card-title>
+                <ion-card-subtitle>Recompensa: {{ m.reward }} Ryō</ion-card-subtitle>
+              </ion-card-header>
+
+              <ion-card-content>
+                <p class="desc">{{ m.description | slice:0:100 }}...</p>
+                
+                <div class="action-area">
+                  <div class="reward-info">
+                    <ion-icon name="wallet"></ion-icon> {{ m.reward }}
+                  </div>
+
+                  <ion-button 
+                    *ngIf="m.status === 'DISPONIBLE'"
+                    expand="block" 
+                    color="danger" 
+                    class="accept-btn"
+                    [disabled]="!canAccept(m.rankRequirement)"
+                    (click)="acceptMission(m)">
+                    {{ canAccept(m.rankRequirement) ? 'ACEPTAR MISIÓN »' : 'RANGO INSUFICIENTE' }}
+                  </ion-button>
+
+                  <ion-button 
+                    *ngIf="m.status === 'EN_CURSO'"
+                    expand="block" 
+                    color="warning"
+                    class="accept-btn">
+                    CONTINUAR »
+                  </ion-button>
+
+                   <ion-button 
+                    *ngIf="m.status === 'COMPLETADA'"
+                    expand="block" 
+                    color="success"
+                    disabled="true"
+                    class="accept-btn">
+                    COMPLETADA
+                  </ion-button>
+
+                </div>
+              </ion-card-content>
+            </div>
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+      
+      <div *ngIf="filteredMissions.length === 0" class="empty-state">
+        <ion-icon name="newspaper-outline"></ion-icon>
+        <p>No hay misiones en este pergamino.</p>
+      </div>
+
+    </ion-grid>
+
+  </div>
+</ion-content>
