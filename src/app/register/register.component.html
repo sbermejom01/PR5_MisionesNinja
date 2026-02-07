@@ -22,16 +22,18 @@
         </div>
 
         <div class="input-group">
-          <label><ion-icon name="map" class="label-icon"></ion-icon> Aldea de Origen</label>
+          <label><ion-icon name="map" class="label-icon"></ion-icon> Rango Inicial</label>
           <div class="select-wrapper">
-            <select class="dark-input dark-select" [(ngModel)]="rank">
-              <option value="" disabled selected>Selecciona tu aldea...</option>
-              <option *ngFor="let rank of ranks" [value]="rank.name">
-                {{ rank.name }}
+            <select class="dark-input dark-select" [(ngModel)]="rank" [disabled]="true">
+              <option *ngFor="let r of ranks" [value]="r.name">
+                {{ r.name }}
               </option>
             </select>
             <ion-icon name="chevron-down-outline" class="select-arrow"></ion-icon>
           </div>
+          <small style="color: #666; font-size: 0.7rem; margin-top: 5px; display:block;">
+            * Todos los iniciados comienzan en la Academia.
+          </small>
         </div>
 
         <div class="input-group">

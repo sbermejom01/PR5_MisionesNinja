@@ -6,7 +6,6 @@
   background-size: cover;
 }
 
-/* Overlay para oscurecer el fondo */
 .overlay {
   position: absolute;
   top: 0;
@@ -52,7 +51,7 @@
 }
 
 .logo-icon {
-  background: #ea1d24; /* COLOR FIJO */
+  background: #ea1d24;
   width: 32px;
   height: 32px;
   display: flex;
@@ -87,7 +86,7 @@
 }
 
 .main-title .text-red {
-  color: #ea1d24; /* COLOR FIJO */
+  color: #ea1d24;
 }
 
 .description {
@@ -110,7 +109,7 @@
 
 /* --- SECCIÓN DERECHA (CARD) --- */
 .login-card {
-  background: rgba(20, 20, 20, 0.95); /* COLOR FIJO */
+  background: rgba(20, 20, 20, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 40px;
@@ -130,7 +129,7 @@
 }
 
 .card-subtitle {
-  color: #a0a0a0; /* COLOR FIJO */
+  color: #a0a0a0;
   font-size: 0.8rem;
   letter-spacing: 0.5px;
   margin-bottom: 30px;
@@ -151,14 +150,14 @@
 }
 
 .input-group .label-icon {
-  color: #ea1d24; /* COLOR FIJO */
+  color: #ea1d24;
   margin-right: 8px;
   font-size: 12px;
 }
 
 .dark-input {
   width: 100%;
-  background: #1f1f1f; /* COLOR FIJO */
+  background: #1f1f1f;
   border: 1px solid #333;
   color: white;
   padding: 12px 15px;
@@ -173,16 +172,14 @@
 }
 
 .dark-input:focus {
-  border-color: #ea1d24; /* COLOR FIJO */
+  border-color: #ea1d24;
 }
 
-/* --- ESTILOS ESPECÍFICOS PARA EL SELECT (Solo Registro) --- */
 .select-wrapper {
   position: relative;
 }
 
 select.dark-select {
-  /* Elimina estilo por defecto del navegador */
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -190,9 +187,8 @@ select.dark-select {
   color: white;
 }
 
-/* Estilo para las opciones cuando se abre el desplegable */
 select.dark-select option {
-  background-color: #0a0a0a; /* COLOR FIJO */
+  background-color: #0a0a0a;
   color: white;
   padding: 10px;
 }
@@ -207,7 +203,6 @@ select.dark-select option {
   font-size: 14px;
 }
 
-/* ------------------------------------------ */
 .password-wrapper {
   position: relative;
 }
@@ -250,7 +245,7 @@ select.dark-select option {
 .card-footer {
   margin-top: 25px;
   text-align: center;
-  color: #a0a0a0; /* COLOR FIJO */
+  color: #a0a0a0;
   font-size: 0.85rem;
 }
 
@@ -262,6 +257,14 @@ select.dark-select option {
 }
 
 .card-footer a:hover {
-  color: #ea1d24; /* COLOR FIJO */
-  border-color: #ea1d24; /* COLOR FIJO */
+  color: #ea1d24;
+  border-color: #ea1d24;
+}
+
+select.dark-select:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background-color: rgba(255, 255, 255, 0.05); 
+  color: #a0a0a0;
+  border-color: #333;
 }
