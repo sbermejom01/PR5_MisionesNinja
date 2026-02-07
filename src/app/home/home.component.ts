@@ -10,7 +10,8 @@ import {
 import { addIcons } from 'ionicons';
 import { 
   compass, flame, newspaperOutline, shieldCheckmark, skull, 
-  wallet, barChart, person, filter, logOutOutline, apertureOutline 
+  wallet, barChart, person, filter, logOutOutline, apertureOutline,
+  eye, documentText 
 } from 'ionicons/icons';
 
 import { MissionService } from '../services/mission.service';
@@ -48,10 +49,13 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) {
     addIcons({ 
-      compass, flame, newspaperOutline, shieldCheckmark, skull, wallet, barChart, person, filter, 'log-out-outline': logOutOutline, 'shuriken': apertureOutline
+      compass, flame, newspaperOutline, shieldCheckmark, skull, wallet, 
+      barChart, person, filter, 'log-out-outline': logOutOutline, 
+      'shuriken': apertureOutline,
+      eye, documentText
     });  
   }
-    
+  
   ngOnInit() {
     this.loadData();
   }
@@ -132,6 +136,6 @@ export class HomeComponent implements OnInit {
   
   logout() {
       this.auth.logout();
-      window.location.reload();
+      this.router.navigate(['/login']);
   }
 }

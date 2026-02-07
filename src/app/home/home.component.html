@@ -2,7 +2,7 @@
   
   <div class="top-bar">
     <div class="brand">
-      <ion-icon name="shuriken" class="spin-icon"></ion-icon> TABLON DE MISIONES
+      <ion-icon name="shuriken" class="spin-icon"></ion-icon> MISSION BOARD
     </div>
     
     <div class="user-info" *ngIf="ninjaProfile">
@@ -24,19 +24,13 @@
     <div class="tabs-container">
       <ion-segment [value]="currentFilter" (ionChange)="applyFilter($event.detail.value!.toString())" mode="md" class="custom-segment">
         <ion-segment-button value="DISPONIBLE">
-          <ion-label>
-            <ion-icon name="compass"></ion-icon> Disponibles
-          </ion-label>
+          <ion-label><ion-icon name="compass"></ion-icon> Disponibles</ion-label>
         </ion-segment-button>
         <ion-segment-button value="EN_CURSO">
-          <ion-label>
-            <ion-icon name="flame"></ion-icon> En Curso
-          </ion-label>
+          <ion-label><ion-icon name="flame"></ion-icon> En Curso</ion-label>
         </ion-segment-button>
         <ion-segment-button value="COMPLETADA">
-          <ion-label>
-            <ion-icon name="shield-checkmark"></ion-icon> Historial
-          </ion-label>
+          <ion-label><ion-icon name="shield-checkmark"></ion-icon> Historial</ion-label>
         </ion-segment-button>
       </ion-segment>
     </div>
@@ -60,7 +54,10 @@
       </div>
     </div>
 
-    <h2 class="section-title">Asignaciones Disponibles</h2>
+    <h2 class="section-title">
+      {{ currentFilter === 'DISPONIBLE' ? 'Asignaciones Disponibles' : 
+         currentFilter === 'EN_CURSO' ? 'Misiones en Progreso Global' : 'Archivo de Misiones' }}
+    </h2>
 
     <ion-grid>
       <ion-row>
@@ -73,7 +70,6 @@
             </div>
 
             <img src="/assets/mission-bg-placeholder.png" alt="Mission" class="card-bg-img">
-            
             <div class="card-overlay"></div>
 
             <div class="card-content">
@@ -83,6 +79,17 @@
               </ion-card-header>
 
               <ion-card-content>
+                
+                <div class="assigned-info" *ngIf="m.status !== 'DISPONIBLE' && m.acceptedByNinjaName">
+                  <div class="assigned-label">OPERATIVO ACTUAL:</div>
+                  <div class="ninja-chip">
+                    <ion-avatar>
+                      <img [src]="m.acceptedByNinjaAvatar" />
+                    </ion-avatar>
+                    <span>{{ m.acceptedByNinjaName }}</span>
+                  </div>
+                </div>
+
                 <p class="desc">{{ m.description | slice:0:100 }}...</p>
                 
                 <div class="action-area">
@@ -92,9 +99,7 @@
 
                   <ion-button 
                     *ngIf="m.status === 'DISPONIBLE'"
-                    expand="block" 
-                    color="danger" 
-                    class="accept-btn"
+                    expand="block" color="danger" class="accept-btn"
                     [disabled]="!canAccept(m.rankRequirement)"
                     (click)="acceptMission(m)">
                     {{ canAccept(m.rankRequirement) ? 'ACEPTAR MISIÓN »' : 'RANGO INSUFICIENTE' }}
@@ -102,20 +107,17 @@
 
                   <ion-button 
                     *ngIf="m.status === 'EN_CURSO'"
-                    expand="block" 
-                    color="warning"
-                    class="accept-btn"
+                    expand="block" color="warning" class="accept-btn"
                     (click)="goToDetail(m.id)">
-                    CONTINUAR »
+                    <ion-icon name="eye" slot="start"></ion-icon>
+                    VER PROGRESO
                   </ion-button>
 
                    <ion-button 
                     *ngIf="m.status === 'COMPLETADA'"
-                    expand="block" 
-                    color="success"
-                    disabled="true"
-                    class="accept-btn">
-                    COMPLETADA
+                    expand="block" color="success" class="accept-btn"
+                    (click)="goToDetail(m.id)"> <ion-icon name="document-text" slot="start"></ion-icon>
+                    VER REPORTE
                   </ion-button>
 
                 </div>
@@ -132,6 +134,5 @@
       </div>
 
     </ion-grid>
-
   </div>
 </ion-content>

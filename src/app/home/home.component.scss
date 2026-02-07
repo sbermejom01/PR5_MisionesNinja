@@ -229,3 +229,39 @@
     opacity: 0.5;
   }
 }
+
+/* Estilos para la info del Ninja asignado */
+.assigned-info {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  .assigned-label {
+    font-size: 0.6rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    font-weight: bold;
+  }
+
+  .ninja-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    ion-avatar {
+      width: 24px;
+      height: 24px;
+      border: 1px solid #ea1d24;
+    }
+
+    span {
+      color: white;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+  }
+}
