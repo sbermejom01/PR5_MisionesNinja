@@ -1,0 +1,60 @@
+<ion-content [fullscreen]="true" class="intel-bg">
+  <div class="top-nav">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="RETURN TO DASHBOARD" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <span class="status-indicator">● STATUS: ACTIVE INFILTRATION</span>
+  </div>
+
+  <div class="intel-container" *ngIf="mission">
+    
+    <div class="mission-header">
+      <h1>OPERATION: {{ mission.title }}</h1>
+      <div class="sub-header">
+        RANK: <span class="text-red">{{ mission.rankRequirement }}-RANK</span> | SECTOR: FIRE COUNTRY
+      </div>
+    </div>
+
+    <div class="section-box briefing">
+      <h3><ion-icon name="document-text-outline"></ion-icon> BRIEFING</h3>
+      <p>{{ mission.description }}</p>
+      <div class="warning-text">
+        Time is of the essence, operative. The shadow is your only ally.
+      </div>
+    </div>
+
+    <div class="work-grid">
+      
+      <div class="section-box evidence">
+        <h3><ion-icon name="image-outline"></ion-icon> EVIDENCE COLLECTION</h3>
+        <div class="upload-zone">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+          <p>Drag & Drop Intel Data</p>
+          <small>JPG, PNG, ENC files only</small>
+        </div>
+      </div>
+
+      <div class="section-box narrative">
+        <h3><ion-icon name="document-text-outline"></ion-icon> MISSION NARRATIVE</h3>
+        <textarea 
+          [(ngModel)]="reportText" 
+          placeholder="Log your movements and strikes. Note any deviations from the plan..."
+          class="dark-textarea"></textarea>
+      </div>
+    </div>
+
+    <div class="footer-actions">
+      <button class="btn-submit" (click)="submitReport()">
+        <ion-icon name="checkmark-circle"></ion-icon> SUBMIT FINAL REPORT
+      </button>
+      <button class="btn-abandon" (click)="abandonMission()">
+        <ion-icon name="close-circle-outline"></ion-icon> ABANDON MISSION
+      </button>
+    </div>
+
+    <div class="footer-meta">
+      ID: #8H-{{ mission.id | slice:0:6 }} &nbsp;&nbsp; ENCRYPTED CONNECTION: SECURE
+    </div>
+
+  </div>
+</ion-content>

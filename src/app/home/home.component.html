@@ -22,7 +22,8 @@
   <div class="main-container">
     
     <div class="tabs-container">
-      <ion-segment [value]="currentFilter" (ionChange)="applyFilter($event.detail.value!.toString())" mode="md" class="custom-segment">        <ion-segment-button value="DISPONIBLE">
+      <ion-segment [value]="currentFilter" (ionChange)="applyFilter($event.detail.value!.toString())" mode="md" class="custom-segment">
+        <ion-segment-button value="DISPONIBLE">
           <ion-label>
             <ion-icon name="compass"></ion-icon> Disponibles
           </ion-label>
@@ -103,7 +104,8 @@
                     *ngIf="m.status === 'EN_CURSO'"
                     expand="block" 
                     color="warning"
-                    class="accept-btn">
+                    class="accept-btn"
+                    (click)="goToDetail(m.id)">
                     CONTINUAR »
                   </ion-button>
 

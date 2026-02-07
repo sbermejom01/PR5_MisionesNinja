@@ -24,4 +24,15 @@ export class MissionService {
   acceptMission(missionId: string) {
     return this.http.patch(`${this.API}/missions/${missionId}/accept`, {});
   }
+
+  submitReport(missionId: string, reportText: string, evidenceImageUrl: string) {
+    return this.http.post(`${this.API}/missions/${missionId}/report`, {
+      reportText,
+      evidenceImageUrl
+    });
+  }
+
+  abandonMission(missionId: string) {
+    return this.http.delete(`${this.API}/missions/${missionId}/abandon`);
+  }
 }

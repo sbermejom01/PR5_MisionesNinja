@@ -1,0 +1,69 @@
+<div class="modal-wrapper">
+  <div class="corner top-left"></div>
+  <div class="corner top-right"></div>
+  <div class="corner bottom-left"></div>
+  <div class="corner bottom-right"></div>
+
+  <div class="rank-circle-container">
+    <div class="rank-circle" [ngClass]="'rank-' + mission.rankRequirement">
+      {{ mission.rankRequirement }}
+    </div>
+    <div class="glow-effect"></div>
+  </div>
+
+  <div class="header-text">
+    <p class="sub">RANK CLASSIFICATION</p>
+    <p class="seal-text">SEAL THE PACT</p>
+    <h2>Confirm Mission<br>Acceptance?</h2>
+  </div>
+
+  <div class="mission-preview">
+    <div class="img-container">
+      <img src="/assets/mission-bg-placeholder.png" alt="Mission">
+    </div>
+    <div class="mission-info">
+      <h3>{{ mission.title }}</h3>
+      
+      <div class="meta-grid">
+        <div class="meta-item text-red">
+          <ion-icon name="flame"></ion-icon> {{ mission.reward }} Ryō
+        </div>
+        <div class="meta-item">
+          <ion-icon name="time-outline"></ion-icon> 24 Hours
+        </div>
+        <div class="meta-item">
+          <ion-icon name="map-outline"></ion-icon> Sector 7
+        </div>
+        <div class="meta-item text-red">
+          <ion-icon name="skull-outline"></ion-icon> Critical
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <small>SUCCESS RATE</small>
+      <span>45%</span>
+    </div>
+    <div class="stat-box">
+      <small>XP MULTIPLIER</small>
+      <span>2.5x</span>
+    </div>
+    <div class="stat-box">
+      <small>STEALTH REQ.</small>
+      <span>Lvl 8</span>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <button class="btn-cancel" (click)="cancel()">
+      <ion-icon name="return-up-back-outline"></ion-icon> RETURN TO SHADOWS
+    </button>
+    <button class="btn-confirm" (click)="accept()">
+      <ion-icon name="flame"></ion-icon> ACCEPT SCROLL
+    </button>
+  </div>
+  
+  <p class="footer-warning">ONCE THE SEAL IS BROKEN, THERE IS NO TURNING BACK</p>
+</div>

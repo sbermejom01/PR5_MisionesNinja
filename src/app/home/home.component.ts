@@ -13,6 +13,10 @@ import { compass, flame, newspaperOutline, shieldCheckmark, skull, wallet, barCh
 import { MissionService } from '../services/mission.service';
 import { AuthService } from '../services/auth';
 
+import { ModalController } from '@ionic/angular/standalone';
+import { Router } from '@angular/router'; 
+import { MisionAceptarComponent } from '../mision-aceptar/mision-aceptar.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,7 +27,7 @@ import { AuthService } from '../services/auth';
     IonContent, IonHeader, IonToolbar, IonGrid, IonRow, IonCol,
     IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent,
     IonButton, IonIcon, IonBadge, IonSegment, IonSegmentButton, IonLabel,
-    IonAvatar
+    IonAvatar, MisionAceptarComponent
   ]
 })
 export class HomeComponent implements OnInit {
@@ -39,10 +43,11 @@ export class HomeComponent implements OnInit {
     private missionService: MissionService,
     private toastController: ToastController,
     private loadingController: LoadingController,
-    private auth: AuthService
+    private auth: AuthService,
+    private modalCtrl: ModalController,
+    private router: Router
   ) {
-    addIcons({ compass, flame, newspaperOutline, shieldCheckmark, skull, wallet, barChart, person, filter });
-  }
+  addIcons({ compass, flame, newspaperOutline, shieldCheckmark, skull, wallet, barChart, person, filter });  }
   
   ngOnInit() {
     this.loadData();
@@ -99,23 +104,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  async acceptMission(mission: any) {
-    const loading = await this.loadingController.create({ message: 'Firmando pergamino...' });
-    await loading.present();
-
-    this.missionService.acceptMission(mission.id).subscribe({
-      next: async () => {
-        await loading.dismiss();
-        this.presentToast('Misión aceptada. ¡Buena suerte!', 'success');
-        this.loadMissions();
-      },
-      error: async (err) => {
-        await loading.dismiss();
-        this.presentToast(err.error.message || 'Error al aceptar', 'danger');
-      }
-    });
-  }
-
   async presentToast(msg: string, color: string) {
     const toast = await this.toastController.create({
       message: msg,
@@ -130,4 +118,39 @@ export class HomeComponent implements OnInit {
       this.auth.logout();
       window.location.reload();
   }
+
+  async acceptMission(mission: any) {
+    
+    const modal = await this.modalCtrl.create({
+      component: MisionAceptarComponent,
+      componentProps: { mission },
+      cssClass: 'mission-modal-class'
+    });
+
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      const loading = await this.loadingController.create({ message: 'Seal the pact...' });
+      await loading.present();
+
+      this.missionService.acceptMission(mission.id).subscribe({
+        next: async () => {
+          await loading.dismiss();
+          this.presentToast('Pacto sellado.', 'success');
+          this.router.navigate(['/mision-detalle', mission.id]);
+        },
+        error: async (err) => {
+          await loading.dismiss();
+          this.presentToast(err.error.message || 'Error al aceptar', 'danger');
+        }
+      });
+    }
+  }
+
+  goToDetail(missionId: string) {
+    this.router.navigate(['/mision-detalle', missionId]);
+  }
+
 }
