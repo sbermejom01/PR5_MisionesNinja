@@ -22,7 +22,6 @@ export class MisionDetalleComponent implements OnInit {
   mission: any = null;
   
   reportText: string = '';
-  // Simularemos la subida de imagen con un string
   evidenceUrl: string = ''; 
 
   constructor(
@@ -32,19 +31,25 @@ export class MisionDetalleComponent implements OnInit {
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController
   ) {
-    addIcons({ arrowBack, documentTextOutline, imageOutline, cloudUploadOutline, closeCircleOutline, checkmarkCircle });
-  }
+addIcons({ arrowBack, documentTextOutline, imageOutline, cloudUploadOutline, closeCircleOutline, checkmarkCircle });  }
 
   ngOnInit() {
     this.missionId = this.route.snapshot.paramMap.get('id') || '';
-    this.loadMissionDetails();
+    if(this.missionId) {
+        this.loadMissionDetails();
+    }
   }
 
   loadMissionDetails() {
-    // Como tu API no tiene GET /missions/:id, bajamos todas y filtramos localmente
-    // Idealmente: this.missionService.getMissionById(this.missionId)...
-    this.missionService.getMissions('ALL').subscribe(res => {
-      this.mission = res.data.find((m: any) => m.id === this.missionId);
+    this.missionService.getMissionById(this.missionId).subscribe({
+        next: (res) => {
+            this.mission = res;
+        },
+        error: (err) => {
+            console.error(err);
+            this.presentToast('Error al cargar la misión', 'danger');
+            this.router.navigate(['/home']);
+        }
     });
   }
 
@@ -57,7 +62,6 @@ export class MisionDetalleComponent implements OnInit {
     const loading = await this.loadingCtrl.create({ message: 'Encrypting & Sending...' });
     await loading.present();
 
-    // Llamamos a tu API
     this.missionService.submitReport(this.missionId, this.reportText, 'https://via.placeholder.com/300') // Placeholder img
       .subscribe({
         next: async () => {

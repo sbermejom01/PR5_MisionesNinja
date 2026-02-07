@@ -4,18 +4,19 @@ import {
   IonContent, IonHeader, IonToolbar, IonGrid, IonRow, IonCol, 
   IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, 
   IonButton, IonIcon, IonBadge, IonSegment, IonSegmentButton, IonLabel, 
-  IonAvatar, ToastController, LoadingController 
+  IonAvatar, ToastController, LoadingController, ModalController 
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-import { compass, flame, newspaperOutline, shieldCheckmark, skull, wallet, barChart, person, filter } from 'ionicons/icons';
+import { 
+  compass, flame, newspaperOutline, shieldCheckmark, skull, 
+  wallet, barChart, person, filter, logOutOutline, apertureOutline 
+} from 'ionicons/icons';
 
 import { MissionService } from '../services/mission.service';
 import { AuthService } from '../services/auth';
-
-import { ModalController } from '@ionic/angular/standalone';
 import { Router } from '@angular/router'; 
-import { MisionAceptarComponent } from '../mision-aceptar/mision-aceptar.component';
+import { MisionAceptarComponent } from '../mision-aceptar/mision-aceptar.component'; 
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,7 @@ import { MisionAceptarComponent } from '../mision-aceptar/mision-aceptar.compone
     IonContent, IonHeader, IonToolbar, IonGrid, IonRow, IonCol,
     IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent,
     IonButton, IonIcon, IonBadge, IonSegment, IonSegmentButton, IonLabel,
-    IonAvatar, MisionAceptarComponent
+    IonAvatar
   ]
 })
 export class HomeComponent implements OnInit {
@@ -36,7 +37,6 @@ export class HomeComponent implements OnInit {
   filteredMissions: any[] = [];
   ninjaProfile: any = null;
   ninjaStats: any = null;
-  
   currentFilter = 'DISPONIBLE'; 
 
   constructor(
@@ -47,8 +47,11 @@ export class HomeComponent implements OnInit {
     private modalCtrl: ModalController,
     private router: Router
   ) {
-  addIcons({ compass, flame, newspaperOutline, shieldCheckmark, skull, wallet, barChart, person, filter });  }
-  
+    addIcons({ 
+      compass, flame, newspaperOutline, shieldCheckmark, skull, wallet, barChart, person, filter, 'log-out-outline': logOutOutline, 'shuriken': apertureOutline
+    });  
+  }
+    
   ngOnInit() {
     this.loadData();
   }
@@ -58,7 +61,6 @@ export class HomeComponent implements OnInit {
       this.ninjaProfile = res.profile;
       this.ninjaStats = res.stats;
     });
-
     this.loadMissions();
   }
 
@@ -71,9 +73,7 @@ export class HomeComponent implements OnInit {
 
   applyFilter(status: any) {
     const filterValue = status ? status.toString() : 'DISPONIBLE';
-    
     this.currentFilter = filterValue;
-    
     if (filterValue === 'ALL') {
       this.filteredMissions = this.missions;
     } else {
@@ -81,27 +81,43 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // --- REGLAS DE NEGOCIO ---
   canAccept(missionRank: string): boolean {
     if (!this.ninjaProfile) return false;
-    
     const rankValues: any = { 'Academy': 0, 'Genin': 1, 'Chunin': 2, 'Jonin': 3, 'Kage': 4 };
     const missionValues: any = { 'D': 0, 'C': 1, 'B': 2, 'A': 3, 'S': 4 };
-
     const myRankVal = rankValues[this.ninjaProfile.rank];
     const missionRankVal = missionValues[missionRank];
-
     return myRankVal >= missionRankVal;
   }
 
-  getRankColor(rank: string) {
-    switch(rank) {
-      case 'S': return 'danger';
-      case 'A': return 'warning';
-      case 'B': return 'tertiary';
-      case 'C': return 'success';
-      default: return 'medium';
+  async acceptMission(mission: any) {
+    const modal = await this.modalCtrl.create({
+      component: MisionAceptarComponent,
+      componentProps: { mission },
+      cssClass: 'mission-modal-class'
+    });
+    await modal.present();
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      const loading = await this.loadingController.create({ message: 'Sellando pacto...' });
+      await loading.present();
+      this.missionService.acceptMission(mission.id).subscribe({
+        next: async () => {
+          await loading.dismiss();
+          this.presentToast('Pacto sellado.', 'success');
+          this.router.navigate(['/mision-detalle', mission.id]);
+        },
+        error: async (err) => {
+          await loading.dismiss();
+          this.presentToast(err.error?.message || 'Error al aceptar', 'danger');
+        }
+      });
     }
+  }
+
+  goToDetail(missionId: string) {
+    this.router.navigate(['/mision-detalle', missionId]);
   }
 
   async presentToast(msg: string, color: string) {
@@ -118,39 +134,4 @@ export class HomeComponent implements OnInit {
       this.auth.logout();
       window.location.reload();
   }
-
-  async acceptMission(mission: any) {
-    
-    const modal = await this.modalCtrl.create({
-      component: MisionAceptarComponent,
-      componentProps: { mission },
-      cssClass: 'mission-modal-class'
-    });
-
-    await modal.present();
-
-    const { data, role } = await modal.onWillDismiss();
-
-    if (role === 'confirm') {
-      const loading = await this.loadingController.create({ message: 'Seal the pact...' });
-      await loading.present();
-
-      this.missionService.acceptMission(mission.id).subscribe({
-        next: async () => {
-          await loading.dismiss();
-          this.presentToast('Pacto sellado.', 'success');
-          this.router.navigate(['/mision-detalle', mission.id]);
-        },
-        error: async (err) => {
-          await loading.dismiss();
-          this.presentToast(err.error.message || 'Error al aceptar', 'danger');
-        }
-      });
-    }
-  }
-
-  goToDetail(missionId: string) {
-    this.router.navigate(['/mision-detalle', missionId]);
-  }
-
 }

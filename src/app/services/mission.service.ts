@@ -35,4 +35,8 @@ export class MissionService {
   abandonMission(missionId: string) {
     return this.http.delete(`${this.API}/missions/${missionId}/abandon`);
   }
+
+  getMissionById(id: string) {
+    return this.http.get<any>(`${this.API}/missions/${id}`);
+  }
 }
