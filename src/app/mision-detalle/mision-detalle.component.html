@@ -3,7 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home" text="VOLVER AL TABLÓN" icon="arrow-back"></ion-back-button>
     </ion-buttons>
-    <span class="status-indicator">● ESTADO: INFILTRACIÓN ACTIVA</span>
+    
+    <span class="status-indicator" [class.completed]="mission?.status === 'COMPLETADA'">
+      ● ESTADO: {{ mission?.status === 'COMPLETADA' ? 'MISIÓN CUMPLIDA' : 'INFILTRACIÓN ACTIVA' }}
+    </span>
   </div>
 
   <div class="intel-container" *ngIf="mission">
@@ -18,19 +21,26 @@
     <div class="section-box briefing">
       <h3><ion-icon name="document-text-outline"></ion-icon> INSTRUCCIONES</h3>
       <p>{{ mission.description }}</p>
-      <div class="warning-text">
+      <div class="warning-text" *ngIf="mission.status !== 'COMPLETADA'">
         El tiempo es esencial, operativo. La sombra es tu única aliada.
       </div>
     </div>
 
-    <div class="work-grid">
+    <div class="work-grid" *ngIf="mission.status !== 'COMPLETADA'">
       
       <div class="section-box evidence">
         <h3><ion-icon name="image-outline"></ion-icon> RECOLECCIÓN DE PRUEBAS</h3>
-        <div class="upload-zone">
-          <ion-icon name="cloud-upload-outline"></ion-icon>
-          <p>Arrastra y Suelta Datos de Intel</p>
-          <small>Solo archivos JPG, PNG, ENC</small>
+        
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" hidden>
+
+        <div class="upload-zone" (click)="triggerUpload()" [class.has-image]="evidenceUrl">
+          <ng-container *ngIf="!evidenceUrl">
+            <ion-icon name="cloud-upload-outline"></ion-icon>
+            <p>Tocar para subir Imagen</p>
+            <small>Evidencia Visual Requerida</small>
+          </ng-container>
+          
+          <img *ngIf="evidenceUrl" [src]="evidenceUrl" class="preview-img">
         </div>
       </div>
 
@@ -43,7 +53,7 @@
       </div>
     </div>
 
-    <div class="footer-actions">
+    <div class="footer-actions" *ngIf="mission.status !== 'COMPLETADA'">
       <button class="btn-submit" (click)="submitReport()">
         <ion-icon name="checkmark-circle"></ion-icon> ENVIAR REPORTE FINAL
       </button>
@@ -51,6 +61,32 @@
         <ion-icon name="close-circle-outline"></ion-icon> ABANDONAR MISIÓN
       </button>
     </div>
+
+
+    <div class="completed-view" *ngIf="mission.status === 'COMPLETADA'">
+      <div class="stamp">CLASIFICADO</div>
+      
+      <h3><ion-icon name="eye"></ion-icon> REPORTE DE MISIÓN ARCHIVADO</h3>
+      
+      <div class="report-content">
+        <div class="evidence-display">
+          <img [src]="evidenceUrl" alt="Evidencia">
+          <span>PRUEBA VISUAL N.º 1</span>
+        </div>
+        
+        <div class="text-display">
+          <h4>BITÁCORA DEL SHINOBI:</h4>
+          <p>"{{ reportText }}"</p>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <button class="btn-abandon" [disabled]="true" style="opacity: 0.5; border-color: #2dd36f; color: #2dd36f;">
+          <ion-icon name="lock-closed"></ion-icon> MISIÓN CERRADA
+        </button>
+      </div>
+    </div>
+
 
     <div class="footer-meta">
       ID: #8H-{{ mission.id | slice:0:6 }} &nbsp;&nbsp; CONEXIÓN ENCRIPTADA: SEGURA

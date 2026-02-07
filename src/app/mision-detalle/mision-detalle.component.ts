@@ -22,7 +22,7 @@ export class MisionDetalleComponent implements OnInit {
   mission: any = null;
   
   reportText: string = '';
-  evidenceUrl: string = ''; 
+  evidenceUrl: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,7 +31,7 @@ export class MisionDetalleComponent implements OnInit {
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController
   ) {
-addIcons({ arrowBack, documentTextOutline, imageOutline, cloudUploadOutline, closeCircleOutline, checkmarkCircle });  }
+  addIcons({ arrowBack, documentTextOutline, imageOutline, cloudUploadOutline, closeCircleOutline, checkmarkCircle });  }
 
   ngOnInit() {
     this.missionId = this.route.snapshot.paramMap.get('id') || '';
@@ -44,30 +44,51 @@ addIcons({ arrowBack, documentTextOutline, imageOutline, cloudUploadOutline, clo
     this.missionService.getMissionById(this.missionId).subscribe({
         next: (res) => {
             this.mission = res;
+            
+            if (this.mission.status === 'COMPLETADA') {
+                this.reportText = this.mission.reportText;
+                this.evidenceUrl = this.mission.evidenceImageUrl;
+            }
         },
         error: (err) => {
-            console.error(err);
-            this.presentToast('Error al cargar la misión', 'danger');
+            this.presentToast('Error al cargar pergamino', 'danger');
             this.router.navigate(['/home']);
         }
     });
   }
 
+  // --- LÓGICA DE SUBIDA DE IMAGEN ---
+  triggerUpload() {
+    const fileInput = document.getElementById('fileInput') as HTMLElement;
+    fileInput.click();
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.evidenceUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   async submitReport() {
-    if(!this.reportText) {
-      this.presentToast('Informe de misión requerido.', 'warning');
+    if(!this.reportText || !this.evidenceUrl) {
+      this.presentToast('Informe y pruebas requeridas.', 'warning');
       return;
     }
 
-    const loading = await this.loadingCtrl.create({ message: 'Encrypting & Sending...' });
+    const loading = await this.loadingCtrl.create({ message: 'Encriptando reporte...' });
     await loading.present();
 
-    this.missionService.submitReport(this.missionId, this.reportText, 'https://via.placeholder.com/300') // Placeholder img
+    this.missionService.submitReport(this.missionId, this.reportText, this.evidenceUrl)
       .subscribe({
         next: async () => {
           await loading.dismiss();
           await this.presentToast('Misión completada con honor.', 'success');
-          this.router.navigate(['/home']);
+          this.loadMissionDetails(); 
         },
         error: async () => {
           await loading.dismiss();

@@ -124,3 +124,74 @@
   letter-spacing: 2px;
   text-transform: uppercase;
 }
+
+/* Estilos de Subida */
+.upload-zone {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+
+  &:hover { border-color: #ea1d24; }
+  
+  &.has-image {
+    border-style: solid;
+    padding: 0;
+  }
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.status-indicator.completed {
+  color: #2dd36f;
+}
+
+/* VISTA DE REPORTE COMPLETADO */
+.completed-view {
+  border: 1px solid #333;
+  padding: 30px;
+  background: #080808;
+  border-radius: 8px;
+  position: relative;
+  margin-bottom: 30px;
+
+  h3 { color: white; display: flex; align-items: center; gap: 10px; margin-top: 0; border-bottom: 1px solid #222; padding-bottom: 15px;}
+}
+
+.stamp {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: 4px solid #2dd36f;
+  color: #2dd36f;
+  font-size: 2rem;
+  font-weight: 900;
+  padding: 5px 15px;
+  text-transform: uppercase;
+  transform: rotate(-15deg);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.report-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  margin-top: 20px;
+  
+  @media(max-width: 768px) { grid-template-columns: 1fr; }
+}
+
+.evidence-display {
+  img { width: 100%; border-radius: 4px; border: 1px solid #333; }
+  span { display: block; font-size: 0.6rem; color: #666; margin-top: 5px; text-align: center; letter-spacing: 2px;}
+}
+
+.text-display {
+  h4 { color: #888; font-size: 0.8rem; margin: 0 0 10px 0; }
+  p { color: #ddd; font-style: italic; line-height: 1.6; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 4px;}
+}
