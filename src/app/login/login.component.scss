@@ -1,9 +1,9 @@
 .shinobi-bg {
-  font-family: 'Roboto', sans-serif;
-  background-image: url('../../assets/forest-dark.jpg');
-  background-repeat: no-repeat;
-  background-position: center center;
+  background-image: url('/assets/forest-dark.jpg'); 
   background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
 }
 
 /* Overlay para oscurecer el fondo */
